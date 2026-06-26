@@ -8,7 +8,7 @@ tools/hold/core.py — hold 普通存入分支（含自动合并）
 否则新建。
 
 关键行为：
-- analyze() 失败（API key 不可用）时直接 RuntimeError，不创建桶
+- analyze() 失败（API key 不可用）时使用默认值继续建桶，不阻断
 - 她/他显式 valence/arousal 优先于 LLM 打标
 - 调 _common.merge_or_create 走合并/新建
 - iter 2.0：source_tool 写 ``hold``；合并到老桶时只更新 ``last_merged_by``
@@ -38,12 +38,16 @@ async def store_core(
     arousal: float,
     why_remembered: str,
 ) -> str:
+    tag_skipped = False
     try:
         analysis = await rt.dehydrator.analyze(content)
     except Exception as e:
-        raise RuntimeError(
-            f"API key 未配置或调用失败，打标无法完成，桶未创建。请检查 OMBRE_COMPRESS_API_KEY。（错误：{e}）"
-        ) from e
+        rt.logger.warning(f"Auto-tagging failed, using defaults / 自动打标失败: {e}")
+        analysis = {
+            "domain": ["未分类"], "valence": 0.5, "arousal": 0.3,
+            "tags": [], "suggested_name": "",
+        }
+        tag_skipped = True
 
     domain = analysis.get("domain") or ["未分类"]
     if not isinstance(domain, list):
@@ -74,6 +78,8 @@ async def store_core(
     if not is_merged:
         asyncio.create_task(check_duplicate_for(result_name, content))
     result = f"{action}{result_name} {','.join(str(d) for d in domain if d is not None)}"
+    if tag_skipped:
+        result += "\n⚠️ Gemini打标跳过，使用默认分类，桶已创建。恢复后可用grow补标签。"
     if embed_warn:
         result += f"\n⚠️ {embed_warn}"
     return result
