@@ -1934,6 +1934,24 @@
 
     <hr style="border-color:var(--border);margin:24px 0;" />
 
+    <h3>快速建桶</h3>
+    <p style="color:var(--text-dim);font-size:13px;margin-bottom:12px;">手动创建一条记忆，直接调用 hold 接口写入</p>
+    <div style="display:flex;flex-direction:column;gap:10px;max-width:520px;">
+      <input type="text" id="qc-title" placeholder="标题（必填）" style="padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-size:14px;background:var(--surface);color:var(--text);" />
+      <textarea id="qc-content" placeholder="内容（必填）" rows="4" style="padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-size:14px;background:var(--surface);color:var(--text);resize:vertical;"></textarea>
+      <div style="display:flex;gap:12px;align-items:center;">
+        <label style="font-size:13px;color:var(--text-dim);white-space:nowrap;">重要度</label>
+        <input type="range" id="qc-importance" min="1" max="10" value="5" style="flex:1;" oninput="document.getElementById('qc-imp-val').textContent=this.value" />
+        <span id="qc-imp-val" style="font-size:13px;min-width:20px;text-align:center;">5</span>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button onclick="quickCreateBucket()" class="btn-primary" style="display:inline-flex;align-items:center;gap:6px;"><i data-lucide="plus-circle"></i> 创建记忆</button>
+        <span id="qc-status" style="font-size:13px;color:var(--text-dim);"></span>
+      </div>
+    </div>
+
+    <hr style="border-color:var(--border);margin:24px 0;" />
+
     <h3>高频模式检测</h3>
     <button onclick="detectPatterns()" class="icon-btn"><i data-lucide="activity"></i> 检测高频模式</button>
     <div id="import-patterns" style="margin-top:16px;"></div>
@@ -6488,6 +6506,33 @@ async function detectPatterns() {
       </div>
     `).join('');
   } catch(e) { container.innerHTML = '<p style="color:var(--negative)">检测失败: ' + e.message + '</p>'; }
+}
+
+async function quickCreateBucket() {
+  const title = document.getElementById('qc-title').value.trim();
+  const content = document.getElementById('qc-content').value.trim();
+  const importance = parseInt(document.getElementById('qc-importance').value) || 5;
+  const status = document.getElementById('qc-status');
+  if (!title) { status.textContent = '请填写标题'; status.style.color = 'var(--negative)'; return; }
+  if (!content) { status.textContent = '请填写内容'; status.style.color = 'var(--negative)'; return; }
+  status.textContent = '创建中…'; status.style.color = 'var(--text-dim)';
+  try {
+    const res = await fetch(BASE + '/api/bucket/quick-create', {
+      method: 'POST', credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: title, content: content, importance: importance })
+    });
+    const data = await res.json();
+    if (data.ok) {
+      status.textContent = '✓ 已创建 → ' + (data.id || data.name);
+      status.style.color = 'var(--positive)';
+      document.getElementById('qc-title').value = '';
+      document.getElementById('qc-content').value = '';
+    } else {
+      status.textContent = '✗ ' + (data.error || '创建失败');
+      status.style.color = 'var(--negative)';
+    }
+  } catch(e) { status.textContent = '✗ ' + e.message; status.style.color = 'var(--negative)'; }
 }
 
 async function reviewAction(bid, action) {
