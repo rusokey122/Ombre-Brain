@@ -68,8 +68,8 @@ class BM25Index:
             text = " ".join([
                 meta.get("name") or "",
                 b.get("content", "")[:1200],
-                " ".join(meta.get("tags", []) or []),
-                " ".join(meta.get("domain", []) or []),
+                " ".join(str(t) for t in (meta.get("tags", []) or [])),
+                " ".join(str(d) for d in (meta.get("domain", []) or [])),
             ])
             tokens = _tokenize(text)
             if tokens:
