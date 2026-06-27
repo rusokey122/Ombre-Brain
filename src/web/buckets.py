@@ -602,6 +602,38 @@ def register(mcp) -> None:
     # =============================================================
 
 
+    @mcp.custom_route("/api/bucket/quick-create", methods=["POST"])
+    async def api_bucket_quick_create(request: Request) -> Response:
+        from starlette.responses import JSONResponse
+        err = sh._require_auth(request)
+        if err:
+            return err
+        try:
+            body = await request.json()
+        except Exception:
+            return JSONResponse({"error": "invalid JSON"}, status_code=400)
+        name = (body.get("name") or "").strip()
+        content = (body.get("content") or "").strip()
+        importance = int(body.get("importance", 5))
+        if not name or not content:
+            return JSONResponse({"error": "name and content are required"}, status_code=400)
+        importance = max(1, min(10, importance))
+        try:
+            bucket_id = await sh.bucket_mgr.create(
+                content=content,
+                tags=[],
+                importance=importance,
+                domain=["未分类"],
+                valence=0.5,
+                arousal=0.3,
+                name=name,
+                why_remembered="dashboard quick-create",
+                source_tool="hold",
+            )
+            return JSONResponse({"ok": True, "id": bucket_id, "name": name})
+        except Exception as e:
+            return JSONResponse({"error": str(e)}, status_code=500)
+
     @mcp.custom_route("/api/self", methods=["GET"])
     async def api_self(request: Request) -> Response:
         """Return all self-type (I tool) entries, newest first."""
