@@ -15,31 +15,39 @@
         crossorigin="anonymous" defer></script>
 <style>
   :root {
-    /* === 复古掌机 retro-handheld palette — warm cream plastic + pale LCD + gold === */
-    --bg: #E7E2D8;                    /* 外环境米灰（带颗粒感） */
-    --bg-gradient: #E7E2D8;
-    --surface: #F4F0E8;              /* 凸起塑料外壳 */
-    --surface-solid: #EDE8DE;        /* 次级外壳块 */
-    --border: #DCD6CA;                /* 极柔的分隔（几乎无线条感） */
-    --border-strong: #C7C0B2;
-    --text: #2C2A26;                  /* 墨黑 */
-    --text-dim: #6E695E;
-    --text-light: #9E988C;
-    --accent: #C2982F;                /* 暖金（高亮/激活态） */
-    --accent-light: #D7B14A;
-    --accent-glow: rgba(194, 152, 47, 0.22);
+    /* === 冷调纸色 cool-paper palette — 纸白 + 理智浅蓝 + 沉淀淡紫，金色只留给永恒 === */
+    --bg: #eef0f4;                    /* 冷调纸色底 */
+    --bg-gradient: #eef0f4;
+    --surface: #f6f8fb;              /* 凸起纸面 */
+    --surface-solid: #e8ebf1;        /* 次级纸面块 */
+    --border: #dce0e8;                /* 极柔的分隔（几乎无线条感） */
+    --border-strong: #c2c8d5;
+    --text: #2a2c33;                  /* 墨黑（偏冷） */
+    --text-dim: #676c79;
+    --text-light: #9aa0af;
+    --accent: #7f95c9;                /* 理智浅蓝（高亮/激活态） */
+    --accent-hover: #6a82b8;          /* hover 深一档 */
+    --accent-light: #97abd9;          /* 渐变浅端 */
+    --accent-glow: rgba(127, 149, 201, 0.22);
+    --accent-soft: rgba(127, 149, 201, 0.12);  /* 浅底 */
+    --accent-2: #9b8ec4;              /* 沉淀淡紫（次强调） */
+    --gold: #C2982F;                  /* 永恒金：只用于钉选/永久核心记忆 */
+    --gold-light: #D7B14A;
+    --gold-glow: rgba(194, 152, 47, 0.22);
+    --pink: #d4889a;                  /* 雾粉：恋爱/做爱域 */
+    --pink-soft: rgba(212, 136, 154, 0.14);
     --positive: #87A987;
     --negative: #BE5A41;              /* 删除/危险红 */
     --warning: #B89762;
     /* 拟物化双向光影：高光（左上）+ 阴影（右下）。原作者把高光设成透明=关闭了立体感，这里点亮。 */
-    --shadow-light: rgba(255, 253, 247, 0.9);
-    --shadow-dark: rgba(150, 138, 116, 0.40);
-    --shadow-dark-subtle: rgba(150, 138, 116, 0.22);
+    --shadow-light: rgba(255, 255, 255, 0.9);
+    --shadow-dark: rgba(139, 149, 173, 0.40);
+    --shadow-dark-subtle: rgba(139, 149, 173, 0.22);
     /* LCD 点阵屏 */
-    --lcd: #C7C9BC;                   /* 屏底（灰绿单色） */
-    --lcd-text: #25271E;              /* 屏上深字 */
-    --lcd-dim: #5B5D4F;
-    --lcd-glow: rgba(37, 39, 30, 0.18);
+    --lcd: #c3c7d0;                   /* 屏底（冷灰单色） */
+    --lcd-text: #232630;              /* 屏上深字 */
+    --lcd-dim: #565b68;
+    --lcd-glow: rgba(35, 38, 48, 0.18);
     --shell-radius: 24px;
     --radius-inner: 16px;
     --radius-control: 12px;
@@ -50,7 +58,9 @@
   body {
     font-family: 'Share Tech Mono', 'Noto Sans SC', system-ui, sans-serif;
     font-weight: 400;
-    background: var(--bg);
+    /* 星图底纹：极淡的星点与细连线平铺，低调到「只觉得纸有星光」 */
+    background-color: var(--bg);
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='250'%20height='250'%3E%3Cg%20fill='rgba(127,149,201,0.08)'%3E%3Ccircle%20cx='36'%20cy='42'%20r='1'/%3E%3Ccircle%20cx='118'%20cy='24'%20r='1.4'/%3E%3Ccircle%20cx='205'%20cy='75'%20r='1'/%3E%3Ccircle%20cx='158'%20cy='150'%20r='1.6'/%3E%3Ccircle%20cx='60'%20cy='196'%20r='1'/%3E%3Cpath%20d='M222%20190l1.6%204.4%204.4%201.6-4.4%201.6-1.6%204.4-1.6-4.4-4.4-1.6%204.4-1.6z'/%3E%3C/g%3E%3Cg%20stroke='rgba(155,142,196,0.05)'%20stroke-width='0.6'%3E%3Cline%20x1='36'%20y1='42'%20x2='118'%20y2='24'/%3E%3Cline%20x1='118'%20y1='24'%20x2='205'%20y2='75'/%3E%3C/g%3E%3C/svg%3E");
     color: var(--text);
     min-height: 100vh;
     line-height: 1.75;
@@ -67,7 +77,7 @@
     align-items: center;
     gap: 20px;
     backdrop-filter: blur(12px);
-    background: rgba(253, 252, 240, 0.7);
+    background: rgba(246, 248, 251, 0.7);
     border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
@@ -131,7 +141,7 @@
     display: flex;
     padding: 0 40px;
     gap: 4px;
-    background: rgba(253, 252, 240, 0.5);
+    background: rgba(246, 248, 251, 0.5);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--border);
     align-items: stretch;
@@ -885,7 +895,7 @@
     color: var(--accent);
     transform: translateY(-1.5px);
     box-shadow: 4px 4px 11px var(--shadow-dark-subtle), -4px -4px 9px var(--shadow-light),
-                0 0 0 2px var(--accent-glow), inset 0 0 14px rgba(194,152,47,0.10);
+                0 0 0 2px var(--accent-glow), inset 0 0 14px rgba(127,149,201,0.10);
   }
   .tab.active .tab-en { color: var(--accent); }
   .tab:active { transform: translateY(1px); box-shadow: inset 3px 3px 7px var(--shadow-dark-subtle), inset -2px -2px 6px var(--shadow-light); }
@@ -1006,7 +1016,7 @@
     color: var(--text-dim);
     box-shadow: 5px 5px 12px var(--shadow-dark-subtle), -4px -4px 10px var(--shadow-light) !important;
   }
-  .btn-secondary:hover, .filter-btn:hover { transform: translateY(-2px); color: var(--accent); }
+  .btn-secondary:hover, .filter-btn:hover { transform: translateY(-2px); color: var(--accent-hover); }
   .btn-secondary:active, .filter-btn:active {
     transform: translateY(1px);
     box-shadow: inset 4px 4px 9px var(--shadow-dark-subtle), inset -3px -3px 7px var(--shadow-light) !important;
@@ -1219,9 +1229,9 @@
      因此用暖金邀请式外壳，不再套红色危险样式。真·破坏性操作若日后出现，
      应另起一个真正的危险区并复用 .danger-hold-btn 长按确认。 */
   #sec-backup {
-    background: linear-gradient(180deg, rgba(194,152,47,0.05), var(--surface)) !important;
+    background: linear-gradient(180deg, rgba(127,149,201,0.05), var(--surface)) !important;
     box-shadow: 8px 8px 22px var(--shadow-dark-subtle), -7px -7px 16px var(--shadow-light),
-                inset 0 0 0 2px rgba(194,152,47,0.24) !important;
+                inset 0 0 0 2px rgba(127,149,201,0.24) !important;
   }
   #sec-backup h3 { color: var(--accent) !important; }
   .btn-danger {
@@ -1287,10 +1297,10 @@
   #heartbeat-dot.breathing { animation: ob-breathe 4.2s ease-in-out infinite; }
 
   /* —— ② pinned 桶 hover：图标被「钉住」般亮起光晕 —— */
-  .bucket-row .pin-ic svg { transition: color .25s ease, filter .25s ease, transform .25s ease; }
+  .bucket-row .pin-ic svg { color: var(--gold); transition: color .25s ease, filter .25s ease, transform .25s ease; }
   .bucket-row:hover .pin-ic svg {
-    color: var(--accent);
-    filter: drop-shadow(0 0 5px var(--accent-glow)) drop-shadow(0 0 2px var(--accent));
+    color: var(--gold);
+    filter: drop-shadow(0 0 5px var(--gold-glow)) drop-shadow(0 0 2px var(--gold));
     transform: rotate(-10deg) scale(1.18);
   }
 
@@ -1328,7 +1338,7 @@
   .detail-panel.anchor-mode::before {
     content:''; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0.5;
     background:
-      repeating-radial-gradient(circle at 50% 38%, transparent 0 26px, rgba(194,152,47,0.10) 26px 27px, transparent 27px 54px);
+      repeating-radial-gradient(circle at 50% 38%, transparent 0 26px, rgba(127,149,201,0.10) 26px 27px, transparent 27px 54px);
     -webkit-mask-image: radial-gradient(circle at 50% 38%, #000 0%, transparent 72%);
             mask-image: radial-gradient(circle at 50% 38%, #000 0%, transparent 72%);
   }
@@ -1443,7 +1453,7 @@
   #status-banner {
     position: sticky; top: 56px; z-index: 40;
     font-size: 12.5px; color: var(--text);
-    background: rgba(253,252,240,0.85); backdrop-filter: blur(6px);
+    background: rgba(246,248,251,0.85); backdrop-filter: blur(6px);
     border-bottom: 1px solid var(--border);
   }
   #status-banner[data-state="hidden"] { display: none; }
@@ -1477,14 +1487,14 @@
   .sb-card-btn:hover { filter: brightness(1.06); }
   /* 直达字段高亮闪烁 / flash the field the user was sent to */
   @keyframes field-flash {
-    0%,100% { box-shadow: 0 0 0 0 rgba(194,152,47,0); }
+    0%,100% { box-shadow: 0 0 0 0 rgba(127,149,201,0); }
     25%,75% { box-shadow: 0 0 0 3px var(--accent-glow); }
   }
   .field-flash { animation: field-flash 1.6s ease-in-out; border-radius: 8px; }
   @media (prefers-reduced-motion: reduce) { .field-flash { animation: none; outline: 2px solid var(--accent); } }
 
   /* ====== ⓪ 版本 & 更新 面板 ====== */
-  #sec-version { background: rgba(194,152,47,0.03); border: 1px solid rgba(194,152,47,0.22); }
+  #sec-version { background: rgba(127,149,201,0.03); border: 1px solid rgba(127,149,201,0.22); }
   #sec-version h3 { color: var(--accent); }
   .ver-status-row { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:10px 0 0; }
   .ver-badge {
@@ -1846,8 +1856,71 @@
   #ob-chick { display: none !important; }
   .self-fab { display: none !important; }
   .tab[data-tab="about"] { display: none !important; }
-  .header-actions button[onclick="openFeedback()"] { display: none !important; }
+  .header .header-actions button[onclick="openFeedback()"] { display: none !important; }
   #status-banner { display: none !important; }
+
+  /* == 恋爱/做爱域胶囊：雾粉 == */
+  .domain-pill.pill-love { color: var(--pink); background: var(--pink-soft); }
+  .filter-btn.pill-love { color: var(--pink) !important; }
+  .filter-btn.pill-love.active { background: var(--pink-soft) !important; }
+
+  /* == 被窝：亲密内容默认藏进被窝，掀开只记本次会话 == */
+  .tuck-wrap { position: relative; }
+  .tuck-wrap.tucked .tuck-blur { filter: blur(6px); user-select: none; pointer-events: none; }
+  .tuck-cover { display: none; position: absolute; inset: -4px; z-index: 2; align-items: center; justify-content: center; cursor: pointer; }
+  .tuck-wrap.tucked .tuck-cover { display: flex; }
+  .tuck-stamp {
+    font-size: 11px; color: var(--text-dim); background: var(--surface-solid);
+    border: 1px dashed var(--border-strong); border-radius: 999px; padding: 3px 14px;
+    box-shadow: 2px 2px 6px var(--shadow-dark-subtle); white-space: nowrap;
+  }
+  /* 被窝章上的小月牙与 zzZ——藏起来的东西睡在夜里 */
+  .tuck-moon, .tuck-zz { position: absolute; opacity: 0.15; pointer-events: none; color: var(--accent-2); }
+  .tuck-moon { left: 14%; top: -4px; font-size: 15px; transform: rotate(-14deg); }
+  .tuck-zz { right: 14%; bottom: -4px; font-size: 11px; letter-spacing: 1px; font-style: italic; }
+  .tuck-back { display: none; position: absolute; right: 4px; bottom: 0; z-index: 2; cursor: pointer; font-size: 10px; color: var(--text-light); opacity: 0.55; white-space: nowrap; }
+  .tuck-wrap[data-tuck]:not(.tucked) .tuck-back { display: inline-flex; }
+  .tuck-back:hover { opacity: 0.95; }
+
+  /* == 夜色（按本地时间 19:00–7:00 自动切换，见 applyNightByClock） == */
+  html.night {
+    --bg: #1d2028;
+    --bg-gradient: #1d2028;
+    --surface: #262a34;
+    --surface-solid: #20242d;
+    --border: #343947;
+    --border-strong: #475062;
+    --text: #d7dae3;
+    --text-dim: #8f95a6;
+    --text-light: #6a7080;
+    --accent: #8ca3d8;
+    --accent-hover: #a3b6e3;
+    --accent-light: #a3b6e3;
+    --accent-glow: rgba(140, 163, 216, 0.25);
+    --accent-soft: rgba(140, 163, 216, 0.14);
+    --accent-2: #a99ed3;
+    --gold: #d0a848;
+    --gold-light: #e0bd62;
+    --gold-glow: rgba(208, 168, 72, 0.25);
+    --pink: #d998a8;
+    --pink-soft: rgba(217, 152, 168, 0.16);
+    --positive: #8fb58f;
+    --negative: #c96a4f;
+    --warning: #c2a370;
+    --shadow-light: rgba(255, 255, 255, 0.05);
+    --shadow-dark: rgba(0, 0, 0, 0.55);
+    --shadow-dark-subtle: rgba(0, 0, 0, 0.35);
+    --lcd: #2a2e38;
+    --lcd-text: #c6cbd8;
+    --lcd-dim: #7d8395;
+    --lcd-glow: rgba(198, 203, 216, 0.15);
+  }
+  html.night body {
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='250'%20height='250'%3E%3Cg%20fill='rgba(170,185,225,0.10)'%3E%3Ccircle%20cx='36'%20cy='42'%20r='1'/%3E%3Ccircle%20cx='118'%20cy='24'%20r='1.4'/%3E%3Ccircle%20cx='205'%20cy='75'%20r='1'/%3E%3Ccircle%20cx='158'%20cy='150'%20r='1.6'/%3E%3Ccircle%20cx='60'%20cy='196'%20r='1'/%3E%3Cpath%20d='M222%20190l1.6%204.4%204.4%201.6-4.4%201.6-1.6%204.4-1.6-4.4-4.4-1.6%204.4-1.6z'/%3E%3C/g%3E%3Cg%20stroke='rgba(160,150,200,0.07)'%20stroke-width='0.6'%3E%3Cline%20x1='36'%20y1='42'%20x2='118'%20y2='24'/%3E%3Cline%20x1='118'%20y1='24'%20x2='205'%20y2='75'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  html.night .header { background: rgba(29, 32, 40, 0.75); }
+  html.night .tabs { background: rgba(29, 32, 40, 0.55); }
+  html.night #status-banner { background: rgba(29, 32, 40, 0.85); }
 </style>
 </head>
 <body>
@@ -1886,7 +1959,10 @@
       <i data-lucide="user" style="width:12px;height:12px;"></i>
       <span id="owner-badge-text"></span>
     </span>
-    <span class="stats" id="stats">loading...</span>
+    <span style="display:inline-flex;flex-direction:column;gap:0;">
+      <span class="stats" id="stats">loading...</span>
+      <span style="font-size:11px;color:var(--text-light);">自 3.19 起，一直记得</span>
+    </span>
     <span id="heartbeat-indicator" title="MCP 心跳" style="font-size:11px;color:var(--text-dim);display:inline-flex;align-items:center;gap:4px;">
       <span id="heartbeat-dot" style="width:8px;height:8px;border-radius:50%;background:#bbb;display:inline-block;"></span>
       <span id="heartbeat-text">…</span>
@@ -3081,7 +3157,7 @@
     <div class="config-section" id="sec-backup" data-sgroup="backup" style="margin-top:40px;">
       <h3>数据备份与迁移 <span class="sec-en">Backup &amp; Migration</span></h3>
 
-      <div style="margin-bottom:14px;font-size:12px;color:var(--text-dim);line-height:1.7;padding:9px 12px;background:rgba(194,152,47,0.06);border-radius:8px;">
+      <div style="margin-bottom:14px;font-size:12px;color:var(--text-dim);line-height:1.7;padding:9px 12px;background:rgba(127,149,201,0.06);border-radius:8px;">
         这里的操作都<strong>安全、可逆</strong>——定期导出备份是保护记忆最简单的方式，建议养成习惯。
       </div>
 
@@ -4223,6 +4299,42 @@ async function readJsonSafe(resp) {
 // ========================================
 
 const BASE = location.origin;
+
+// ── 夜色随本地时间：19:00–7:00 进入夜色 ──
+function applyNightByClock() {
+  var h = new Date().getHours();
+  document.documentElement.classList.toggle('night', h >= 19 || h < 7);
+}
+applyNightByClock();
+setInterval(applyNightByClock, 60000);
+
+// ── 被窝：domain/tags 命中亲密关键词的桶默认藏进被窝，掀开只记本次会话 ──
+var TUCK_KEYWORDS = ['做爱', '色色', '亲密'];
+var _untucked = new Set();
+try { _untucked = new Set(JSON.parse(sessionStorage.getItem('ob_untucked') || '[]')); } catch (e) {}
+function isTuckable(meta) {
+  var pool = (meta.domain || []).concat(meta.tags || []);
+  return pool.some(function(x) {
+    return TUCK_KEYWORDS.some(function(k) { return String(x).indexOf(k) !== -1; });
+  });
+}
+function tuckOverlayHtml() {
+  return '<span class="tuck-cover" onclick="toggleTuck(event,this)"><span class="tuck-moon">☾</span><span class="tuck-stamp">藏进被窝了 · 轻轻掀开</span><span class="tuck-zz">zzZ</span></span>' +
+         '<span class="tuck-back" onclick="toggleTuck(event,this)" title="盖回被窝">☾ 盖回</span>';
+}
+function toggleTuck(ev, el) {
+  ev.stopPropagation();
+  var wrap = el.closest('.tuck-wrap');
+  if (!wrap) return;
+  var id = wrap.getAttribute('data-tuck');
+  wrap.classList.toggle('tucked');
+  if (wrap.classList.contains('tucked')) _untucked.delete(id); else _untucked.add(id);
+  try { sessionStorage.setItem('ob_untucked', JSON.stringify(Array.from(_untucked))); } catch (e) {}
+}
+// 恋爱/做爱域 → 雾粉胶囊
+function isLoveDomain(d) {
+  return ['恋爱', '做爱'].some(function(k) { return String(d).indexOf(k) !== -1; });
+}
 let allBuckets = [];
 let currentFilter = 'all';
 var BUCKET_SORT_MODES = ['score', 'created_desc', 'created_asc'];
@@ -4472,7 +4584,7 @@ function buildFilters() {
   }).join('') + visibleDomains.map(function(d) {
     var key = 'domain:' + d;
     var active = key === currentFilter;
-    return '<button class="filter-btn ' + (active ? 'active' : '') + '" aria-pressed="' + (active ? 'true' : 'false') + '" data-filter="' + escAttr(key) + '">' + esc(d) + '</button>';
+    return '<button class="filter-btn ' + (active ? 'active' : '') + (isLoveDomain(d) ? ' pill-love' : '') + '" aria-pressed="' + (active ? 'true' : 'false') + '" data-filter="' + escAttr(key) + '">' + esc(d) + '</button>';
   }).join('');
 
   // buildFilters 会在每次数据刷新后运行；覆盖处理器，避免重复累积监听器。
@@ -4613,8 +4725,10 @@ function _paintBuckets() {
     var inlineStyle = b.dont_surface ? 'opacity:0.45;' : '';
     var rowClick = 'onclick="showDetail(this.dataset.id)"';
     var domainHtml = (b.domain || []).length
-      ? '<span class="domain-pill">' + esc((b.domain || []).join(', ')) + '</span>'
+      ? '<span class="domain-pill' + ((b.domain || []).some(isLoveDomain) ? ' pill-love' : '') + '">' + esc((b.domain || []).join(', ')) + '</span>'
       : '';
+    var tuckable = isTuckable(b);
+    var tucked = tuckable && !_untucked.has(b.id);
     var emotionHtml = '<span class="emotion" style="display:inline-flex;align-items:center;gap:3px;"><span class="v-bar"><span class="v-dot" style="left:' + vPos + '%"></span></span>' + modelV + '</span>';
     return '<div class="' + rowCls + '" data-id="' + escAttr(b.id) + '" ' + rowClick + ' style="cursor:pointer;' + inlineStyle + '">' +
       '<div class="bucket-row-top">' +
@@ -4628,7 +4742,10 @@ function _paintBuckets() {
         '</div>' +
         '<span class="time" title="' + escAttr(timeTitle) + '">' + esc(timeLabel) + '</span>' +
       '</div>' +
-      '<div class="bucket-row-bottom"><span class="preview">' + esc(b.content_preview) + '</span></div>' +
+      '<div class="bucket-row-bottom tuck-wrap' + (tucked ? ' tucked' : '') + '"' + (tuckable ? ' data-tuck="' + escAttr(b.id) + '"' : '') + '>' +
+        '<span class="preview tuck-blur">' + esc(b.content_preview) + '</span>' +
+        (tuckable ? tuckOverlayHtml() : '') +
+      '</div>' +
     '</div>';
   }).join('') + _bucketPagerHtml(visible.length, totalPages);
   if (window.lucide) lucide.createIcons();
@@ -4691,6 +4808,8 @@ async function showDetail(id) {
       : safeNumber(meta.model_valence, 0.5, 0, 1);
     var safeImportance = Math.round(safeNumber(meta.importance, 5, 1, 10));
     var safeActivationCount = safeNumber(meta.activation_count, 0, 0);
+    var tuckable = isTuckable(meta);
+    var tucked = tuckable && !_untucked.has(id);
     // letter → 翻信纸展开动画；anchor → 引力线背景（坐标系质感）
     panel.classList.toggle('letter-mode', meta.type === 'letter');
     panel.classList.toggle('anchor-mode', !!meta.anchor);
@@ -4743,7 +4862,10 @@ async function showDetail(id) {
         '<button data-bucket-id="' + escAttr(id) + '" onclick="bucketArchive(this.dataset.bucketId)" class="icon-btn"><i data-lucide="archive"></i> 归档</button>' +
         '<button data-bucket-id="' + escAttr(id) + '" onclick="bucketDelete(this.dataset.bucketId)" class="icon-btn" style="color:#b85c3c;"><i data-lucide="trash-2"></i> 删除到档案</button>' +
       '</div>' +
-      '<div class="detail-content">' + esc(displayContent) + '</div>' +
+      '<div class="tuck-wrap' + (tucked ? ' tucked' : '') + '"' + (tuckable ? ' data-tuck="' + escAttr(id) + '"' : '') + '>' +
+        '<div class="detail-content tuck-blur">' + esc(displayContent) + '</div>' +
+        (tuckable ? tuckOverlayHtml() : '') +
+      '</div>' +
       renderEditForm(id, Object.assign({}, meta, {_content_for_edit: b.content}));
   } catch (e) {
     content.innerHTML = '<div class="loading">加载失败: ' + esc(e.message) + '</div>';
@@ -6057,7 +6179,7 @@ function _eggPoem(){
   setTimeout(function(){
     // 心跳灯变金
     var dot=document.getElementById('heartbeat-dot');
-    if(dot){ dot.style.background='var(--accent)'; dot.style.boxShadow='0 0 6px 2px rgba(194,152,47,0.5)'; }
+    if(dot){ dot.style.background='var(--gold)'; dot.style.boxShadow='0 0 6px 2px rgba(194,152,47,0.5)'; }
     // 右下角浮字
     var card=document.createElement('div');
     card.style.cssText=[
@@ -7611,7 +7733,7 @@ async function loadAbout() {
       html += '<div style="margin-top:24px;padding:22px;background:var(--surface-solid);border-radius:14px;text-align:center;' +
         'box-shadow:inset 3px 3px 8px var(--shadow-dark-subtle), inset -3px -3px 6px var(--shadow-light);">' +
         '<a href="' + escAttr(d.ifdian) + '" target="_blank" rel="noopener" style="display:inline-block;color:#fffdf5;text-decoration:none;font-size:14px;padding:11px 26px;border-radius:13px;' +
-        'background:linear-gradient(150deg, var(--accent-light), var(--accent));text-shadow:0 1px 1px rgba(120,90,20,0.35);' +
+        'background:linear-gradient(150deg, var(--accent-light), var(--accent));text-shadow:0 1px 1px rgba(58,74,110,0.35);' +
         'box-shadow:5px 5px 13px var(--shadow-dark), -4px -4px 10px var(--shadow-light), inset 0 1px 0 rgba(255,255,255,0.35);">' +
         _SV.coffee + ' 在爱发电支持我们 / Support on Afdian</a></div>';
     }
@@ -8052,7 +8174,7 @@ async function pollHeartbeat() {
     dot.style.background = '#3a9b5c';
     const idle = Math.floor((Date.now()/1000) - (d.last_op_ts || 0));
     var decaying = d.decay_engine === 'running';
-    txt.textContent = '在线 · ' + (decaying ? '衰减运行中' : '衰减停');
+    txt.textContent = '在线 · ' + (decaying ? '记忆在呼吸' : '衰减停');
     txt.title = 'uptime ' + d.uptime_s + 's · 上次活跃 ' + idle + 's 前';
     dot.classList.add('breathing');   // 在线即呼吸，衰减状态只影响文字
   } catch (e) {
@@ -8873,7 +8995,7 @@ async function loadAnchorsView() {
         <div style="flex:1;min-width:0;">
           <div style="font-weight:500;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
             ${_escapeAnchorHtml(a.name || a.id)}
-            ${a.pinned ? '<span style="font-size:10px;color:var(--accent);margin-left:6px;">⊕ pinned</span>' : ''}
+            ${a.pinned ? '<span style="font-size:10px;color:var(--gold);margin-left:6px;">⊕ pinned</span>' : ''}
           </div>
           <div style="font-size:11px;color:var(--text-dim);margin-top:3px;line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">${_escapeAnchorHtml(a.preview || '')}</div>
           <div style="font-size:10px;color:var(--text-dim);margin-top:4px;">created: ${esc(a.created || '')}</div>
