@@ -3,12 +3,13 @@
 tools/hold/core.py — hold 普通存入分支（含自动合并）
 ========================================
 
-非 feel、非 pinned 时走这里：先调 LLM 自动打标，再用语义检索找近似桶，
+非 feel、非 pinned 时走这里：优先调 LLM 自动打标，失败则用本地中性元数据，
+再用检索找近似桶，
 超过 merge_threshold 则合并（hold 用 raw_merge=True 拼接原文，不压缩），
 否则新建。
 
 关键行为：
-- analyze() 失败（API key 不可用）时使用默认值继续建桶，不阻断
+- analyze() 失败（API key/限流/网络不可用）时仍逐字保存正文，只降级元数据
 - 她/他显式 valence/arousal 优先于 LLM 打标
 - 调 _common.merge_or_create 走合并/新建
 - iter 2.0：source_tool 写 ``hold``；合并到老桶时只更新 ``last_merged_by``
@@ -20,7 +21,7 @@ tools/hold/core.py — hold 普通存入分支（含自动合并）
 - 不做单桶字节上限校验（已在 dispatch 入口做过）
 
 对外暴露：store_core(content, extra_tags, importance, valence, arousal,
-                     why_remembered) → str
+                     why_remembered, meaning, media) → str
 ========================================
 """
 
@@ -37,17 +38,27 @@ async def store_core(
     valence: float,
     arousal: float,
     why_remembered: str,
+    meaning: str = "",
+    media: list | str | None = None,
+    test_data: bool = False,
 ) -> str:
-    tag_skipped = False
+    metadata_fallback = False
     try:
         analysis = await rt.dehydrator.analyze(content)
     except Exception as e:
-        rt.logger.warning(f"Auto-tagging failed, using defaults / 自动打标失败: {e}")
-        analysis = {
-            "domain": ["未分类"], "valence": 0.5, "arousal": 0.3,
-            "tags": [], "suggested_name": "",
+        metadata_fallback = True
+        rt.logger.warning(
+            "hold metadata analysis failed; preserving raw content with local defaults / "
+            f"hold 打标失败，使用本地默认元数据并原样保存正文: {type(e).__name__}: {e}"
+        )
+        default_analysis = getattr(rt.dehydrator, "_default_analysis", None)
+        analysis = default_analysis() if callable(default_analysis) else {
+            "domain": ["未分类"],
+            "valence": 0.5,
+            "arousal": 0.3,
+            "tags": [],
+            "suggested_name": "",
         }
-        tag_skipped = True
 
     domain = analysis.get("domain") or ["未分类"]
     if not isinstance(domain, list):
@@ -71,6 +82,9 @@ async def store_core(
         raw_merge=True,
         why_remembered=why_remembered,
         source_tool="hold",
+        meaning=meaning,
+        media=media,
+        test_data=test_data,
     )
 
     action = "合并→" if is_merged else "新建→"
@@ -78,8 +92,8 @@ async def store_core(
     if not is_merged:
         asyncio.create_task(check_duplicate_for(result_name, content))
     result = f"{action}{result_name} {','.join(str(d) for d in domain if d is not None)}"
-    if tag_skipped:
-        result += "\n⚠️ Gemini打标跳过，使用默认分类，桶已创建。恢复后可用grow补标签。"
     if embed_warn:
         result += f"\n⚠️ {embed_warn}"
+    if metadata_fallback:
+        result += "\n⚠️ 打标 API 暂不可用：正文已逐字保存，未做任何压缩；元数据暂用本地中性值。"
     return result
