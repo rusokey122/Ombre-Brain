@@ -47,6 +47,8 @@ jobs:
           context: .
           push: true
           platforms: linux/amd64
+          provenance: false
+          sbom: false
           tags: |
             ghcr.io/rusokey122/ombre-brain:latest
             ghcr.io/rusokey122/ombre-brain:${{ steps.ver.outputs.version }}-xy
