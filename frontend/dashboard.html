@@ -788,17 +788,19 @@
     }
     .search-bar input { width: 100%; flex: 1; }
 
-    /* ── Tabs: compact key-grid ── */
+    /* ── Tabs: compact key-grid ──
+       三列等宽 grid：flex 按内容伸缩会让每格宽度不一致，右边缘对不齐 */
     .tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       margin: 8px 12px;
       padding: 6px 8px;
       gap: 5px;
     }
     .tab {
-      padding: 7px 10px 5px;
+      padding: 7px 6px 5px;
       font-size: 12px;
-      flex: 1 0 calc(33% - 10px);
-      max-width: calc(50% - 6px);
+      max-width: none;
       text-align: center;
     }
     .tab .tab-en { font-size: 9px; }
