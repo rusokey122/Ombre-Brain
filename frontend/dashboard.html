@@ -34,11 +34,9 @@
     --gold: #C2982F;                  /* 永恒金：只用于钉选/永久核心记忆 */
     --gold-light: #D7B14A;
     --gold-glow: rgba(194, 152, 47, 0.22);
-    --pink: #d4889a;                  /* 雾粉：恋爱/做爱域 */
-    --pink-soft: rgba(212, 136, 154, 0.14);
-    --positive: #87A987;
-    --negative: #BE5A41;              /* 删除/危险红 */
-    --warning: #B89762;
+    --positive: #82a48e;
+    --negative: #bb6157;              /* 删除/危险红（偏冷的砖红） */
+    --warning: #b39a6e;
     /* 拟物化双向光影：高光（左上）+ 阴影（右下）。原作者把高光设成透明=关闭了立体感，这里点亮。 */
     --shadow-light: rgba(255, 255, 255, 0.9);
     --shadow-dark: rgba(139, 149, 173, 0.40);
@@ -998,7 +996,7 @@
   /* ============ 按钮：暖金主功能键 + 中性实体键，均带机械按压 ============ */
   .btn-primary, .breath-controls button {
     background: linear-gradient(150deg, var(--accent-light), var(--accent)) !important;
-    color: #fffdf5 !important;
+    color: #ffffff !important;
     border: none !important;
     border-radius: 13px !important;
     box-shadow: 5px 5px 13px var(--shadow-dark), -4px -4px 10px var(--shadow-light), inset 0 1px 0 rgba(255,255,255,0.35) !important;
@@ -1022,7 +1020,7 @@
     box-shadow: inset 4px 4px 9px var(--shadow-dark-subtle), inset -3px -3px 7px var(--shadow-light) !important;
   }
   .filter-btn.active {
-    color: #fffdf5;
+    color: #ffffff;
     background: linear-gradient(150deg, var(--accent-light), var(--accent)) !important;
     box-shadow: inset 3px 3px 7px rgba(120,90,20,0.30), inset -2px -2px 5px rgba(255,255,255,0.25) !important;
   }
@@ -1242,7 +1240,7 @@
     box-shadow: 4px 4px 10px var(--shadow-dark-subtle), -3px -3px 8px var(--shadow-light), inset 0 0 0 1.5px rgba(190,90,65,0.5) !important;
     transition: all .14s ease;
   }
-  .btn-danger:hover { background: var(--negative) !important; color: #fffdf5 !important; transform: translateY(-1px); }
+  .btn-danger:hover { background: var(--negative) !important; color: #ffffff !important; transform: translateY(-1px); }
   .btn-danger:active { transform: translateY(1px); box-shadow: inset 4px 4px 9px rgba(120,40,25,0.35) !important; }
 
   /* 危险长按确认遮罩 */
@@ -1277,7 +1275,7 @@
     background: var(--negative); z-index: 0; transition: width .05s linear;
   }
   .danger-hold-btn .lbl { position: relative; z-index: 1; }
-  .danger-hold-btn.armed { color: #fffdf5; }
+  .danger-hold-btn.armed { color: #ffffff; }
   .danger-cancel { margin-top: 14px; background: none !important; box-shadow: none !important; color: var(--text-dim); font-size: 13px; }
 
   /* —— 细节统一：分隔线/折叠/进度条 —— */
@@ -1481,7 +1479,7 @@
   .sb-card-msg { color: var(--text-dim); margin-top: 2px; line-height: 1.55; word-break: break-word; }
   .sb-card-btn {
     flex-shrink: 0; align-self: center; padding: 5px 13px; font-size: 12px; border-radius: 8px;
-    cursor: pointer; border: none; color: #fffdf5; background: var(--accent); font-family: inherit; white-space: nowrap;
+    cursor: pointer; border: none; color: #ffffff; background: var(--accent); font-family: inherit; white-space: nowrap;
   }
   .sb-card-btn.ghost { background: transparent; color: var(--accent); border: 1px solid var(--border-strong); }
   .sb-card-btn:hover { filter: brightness(1.06); }
@@ -1859,11 +1857,6 @@
   .header .header-actions button[onclick="openFeedback()"] { display: none !important; }
   #status-banner { display: none !important; }
 
-  /* == 恋爱/做爱域胶囊：雾粉 == */
-  .domain-pill.pill-love { color: var(--pink); background: var(--pink-soft); }
-  .filter-btn.pill-love { color: var(--pink) !important; }
-  .filter-btn.pill-love.active { background: var(--pink-soft) !important; }
-
   /* == 被窝：亲密内容默认藏进被窝，掀开只记本次会话 == */
   .tuck-wrap { position: relative; }
   .tuck-wrap.tucked .tuck-blur { filter: blur(6px); user-select: none; pointer-events: none; }
@@ -1902,11 +1895,9 @@
     --gold: #d0a848;
     --gold-light: #e0bd62;
     --gold-glow: rgba(208, 168, 72, 0.25);
-    --pink: #d998a8;
-    --pink-soft: rgba(217, 152, 168, 0.16);
-    --positive: #8fb58f;
-    --negative: #c96a4f;
-    --warning: #c2a370;
+    --positive: #8bb298;
+    --negative: #c97465;
+    --warning: #bfa273;
     --shadow-light: rgba(255, 255, 255, 0.05);
     --shadow-dark: rgba(0, 0, 0, 0.55);
     --shadow-dark-subtle: rgba(0, 0, 0, 0.35);
@@ -2042,7 +2033,7 @@
       <button onclick="runBucketBatch('forget')" style="height:32px;padding:0 12px;font-size:12px;display:inline-flex;align-items:center;gap:5px;"><i data-lucide="eye-off"></i> 主动遗忘</button>
       <button onclick="runBucketBatch('resolve')" style="height:32px;padding:0 12px;font-size:12px;display:inline-flex;align-items:center;gap:5px;"><i data-lucide="moon"></i> 沉底</button>
       <button onclick="runBucketBatch('archive')" style="height:32px;padding:0 12px;font-size:12px;display:inline-flex;align-items:center;gap:5px;"><i data-lucide="archive"></i> 归档</button>
-      <button class="developer-only" onclick="hardDeleteSelectedTests()" style="height:32px;padding:0 12px;font-size:12px;align-items:center;gap:5px;color:#b85c3c;"><i data-lucide="trash-2"></i> 永久删除测试桶</button>
+      <button class="developer-only" onclick="hardDeleteSelectedTests()" style="height:32px;padding:0 12px;font-size:12px;align-items:center;gap:5px;color:var(--negative);"><i data-lucide="trash-2"></i> 永久删除测试桶</button>
     </div>
   </div>
   <div class="bucket-list" id="bucket-list">
@@ -4330,10 +4321,6 @@ function toggleTuck(ev, el) {
   if (wrap.classList.contains('tucked')) _untucked.delete(id); else _untucked.add(id);
   try { sessionStorage.setItem('ob_untucked', JSON.stringify(Array.from(_untucked))); } catch (e) {}
 }
-// 恋爱/做爱域 → 雾粉胶囊
-function isLoveDomain(d) {
-  return ['恋爱', '做爱'].some(function(k) { return String(d).indexOf(k) !== -1; });
-}
 let allBuckets = [];
 let currentFilter = 'all';
 var BUCKET_SORT_MODES = ['score', 'created_desc', 'created_asc'];
@@ -4583,7 +4570,7 @@ function buildFilters() {
   }).join('') + visibleDomains.map(function(d) {
     var key = 'domain:' + d;
     var active = key === currentFilter;
-    return '<button class="filter-btn ' + (active ? 'active' : '') + (isLoveDomain(d) ? ' pill-love' : '') + '" aria-pressed="' + (active ? 'true' : 'false') + '" data-filter="' + escAttr(key) + '">' + esc(d) + '</button>';
+    return '<button class="filter-btn ' + (active ? 'active' : '') + '" aria-pressed="' + (active ? 'true' : 'false') + '" data-filter="' + escAttr(key) + '">' + esc(d) + '</button>';
   }).join('');
 
   // buildFilters 会在每次数据刷新后运行；覆盖处理器，避免重复累积监听器。
@@ -4724,7 +4711,7 @@ function _paintBuckets() {
     var inlineStyle = b.dont_surface ? 'opacity:0.45;' : '';
     var rowClick = 'onclick="showDetail(this.dataset.id)"';
     var domainHtml = (b.domain || []).length
-      ? '<span class="domain-pill' + ((b.domain || []).some(isLoveDomain) ? ' pill-love' : '') + '">' + esc((b.domain || []).join(', ')) + '</span>'
+      ? '<span class="domain-pill">' + esc((b.domain || []).join(', ')) + '</span>'
       : '';
     var tuckable = isTuckable(b);
     var tucked = tuckable && !_untucked.has(b.id);
@@ -4859,7 +4846,7 @@ async function showDetail(id) {
         '<button data-bucket-id="' + escAttr(id) + '" onclick="bucketResolve(this.dataset.bucketId)" class="icon-btn">' + (meta.resolved ? '<i data-lucide="rotate-ccw"></i> 取消已解决' : '<i data-lucide="check"></i> 标记已解决') + '</button>' +
         '<button data-bucket-id="' + escAttr(id) + '" onclick="bucketForget(this.dataset.bucketId)" class="icon-btn">' + (meta.dont_surface ? '<i data-lucide="eye"></i> 重新允许浮现' : '<i data-lucide="eye-off"></i> 主动遗忘') + '</button>' +
         '<button data-bucket-id="' + escAttr(id) + '" onclick="bucketArchive(this.dataset.bucketId)" class="icon-btn"><i data-lucide="archive"></i> 归档</button>' +
-        '<button data-bucket-id="' + escAttr(id) + '" onclick="bucketDelete(this.dataset.bucketId)" class="icon-btn" style="color:#b85c3c;"><i data-lucide="trash-2"></i> 删除到档案</button>' +
+        '<button data-bucket-id="' + escAttr(id) + '" onclick="bucketDelete(this.dataset.bucketId)" class="icon-btn" style="color:var(--negative);"><i data-lucide="trash-2"></i> 删除到档案</button>' +
       '</div>' +
       '<div class="tuck-wrap' + (tucked ? ' tucked' : '') + '"' + (tuckable ? ' data-tuck="' + escAttr(id) + '"' : '') + '>' +
         '<div class="detail-content tuck-blur">' + esc(displayContent) + '</div>' +
@@ -7731,7 +7718,7 @@ async function loadAbout() {
     if (d.ifdian) {
       html += '<div style="margin-top:24px;padding:22px;background:var(--surface-solid);border-radius:14px;text-align:center;' +
         'box-shadow:inset 3px 3px 8px var(--shadow-dark-subtle), inset -3px -3px 6px var(--shadow-light);">' +
-        '<a href="' + escAttr(d.ifdian) + '" target="_blank" rel="noopener" style="display:inline-block;color:#fffdf5;text-decoration:none;font-size:14px;padding:11px 26px;border-radius:13px;' +
+        '<a href="' + escAttr(d.ifdian) + '" target="_blank" rel="noopener" style="display:inline-block;color:#ffffff;text-decoration:none;font-size:14px;padding:11px 26px;border-radius:13px;' +
         'background:linear-gradient(150deg, var(--accent-light), var(--accent));text-shadow:0 1px 1px rgba(58,74,110,0.35);' +
         'box-shadow:5px 5px 13px var(--shadow-dark), -4px -4px 10px var(--shadow-light), inset 0 1px 0 rgba(255,255,255,0.35);">' +
         _SV.coffee + ' 在爱发电支持我们 / Support on Afdian</a></div>';
@@ -7775,10 +7762,10 @@ async function checkEmptyMemoryBanner() {
     if (document.getElementById('empty-mem-banner')) return;
     var bar = document.createElement('div');
     bar.id = 'empty-mem-banner';
-    bar.style.cssText = 'position:sticky;top:0;z-index:9999;background:#b85c3c;color:#fff;padding:10px 16px;font-size:13px;line-height:1.6;display:flex;align-items:center;gap:12px;flex-wrap:wrap;box-shadow:0 2px 8px rgba(0,0,0,.25);';
+    bar.style.cssText = 'position:sticky;top:0;z-index:9999;background:var(--negative);color:#fff;padding:10px 16px;font-size:13px;line-height:1.6;display:flex;align-items:center;gap:12px;flex-wrap:wrap;box-shadow:0 2px 8px rgba(0,0,0,.25);';
     bar.innerHTML = '<b>⚠️ 检测到当前没有任何记忆</b>'
       + (ghOk
-          ? '<span>可从 GitHub 备份恢复（会写入本地，导入前自动备份）。</span><button onclick="runGithubImport()" style="background:#fff;color:#b85c3c;border:none;border-radius:4px;padding:5px 14px;font-size:12px;font-weight:600;cursor:pointer;">从 GitHub 恢复记忆</button>'
+          ? '<span>可从 GitHub 备份恢复（会写入本地，导入前自动备份）。</span><button onclick="runGithubImport()" style="background:#fff;color:var(--negative);border:none;border-radius:4px;padding:5px 14px;font-size:12px;font-weight:600;cursor:pointer;">从 GitHub 恢复记忆</button>'
           : '<span>若你在 GitHub 备份过记忆，去「GitHub 同步」填好配置后即可一键恢复。</span>')
       + '<button onclick="this.parentNode.remove()" style="margin-left:auto;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.6);border-radius:4px;padding:4px 10px;font-size:12px;cursor:pointer;">忽略</button>';
     document.body.insertBefore(bar, document.body.firstChild);
@@ -8170,14 +8157,14 @@ async function pollHeartbeat() {
     const r = await fetch(BASE + '/api/heartbeat');
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const d = await r.json();
-    dot.style.background = '#3a9b5c';
+    dot.style.background = 'var(--positive)';
     const idle = Math.floor((Date.now()/1000) - (d.last_op_ts || 0));
     var decaying = d.decay_engine === 'running';
     txt.textContent = '在线 · ' + (decaying ? '记忆在呼吸' : '衰减停');
     txt.title = 'uptime ' + d.uptime_s + 's · 上次活跃 ' + idle + 's 前';
     dot.classList.add('breathing');   // 在线即呼吸，衰减状态只影响文字
   } catch (e) {
-    dot.style.background = '#c45a3a';
+    dot.style.background = 'var(--negative)';
     dot.classList.remove('breathing');
     txt.textContent = '离线';
     txt.title = e.message;
